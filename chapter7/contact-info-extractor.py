@@ -1,22 +1,34 @@
 # This program finds emails and addresses on the clipboard.
 
-import re
+import pyperclip, re
 
 phoneRegex = re.compile(r'''(
 	(\d{3}|\(\d{3}\))?				# area code
 	(\s|-|\.)?						# separator
-	\d{3}							# first 3 digits
+	(\d{3})							# first 3 digits
 	(\s|-|\.)						# separator
-	\d{4}							# last 4 digits
-	(\s*(ext|x|ext.)\s*\d{2,5})?	# extension
+	(\d{4})							# last 4 digits
+	(\s*(ext|x|ext.)\s*(\d{2,5}))?	# extension
 	)''', re.VERBOSE)
 
-#TODO : Create email regex
+# Create email regex
 emailRegex = re.compile('[^@]+@[^@]+\.[^@]+')
 
-#TODO : Find matches in clipboard text.
-print'Enter a filename. '
-filename = str(raw_input())
+# Find matches in clipboard text.
+text = str(pyperclip.paste())
 matches = []
-with open(filename, 'r') as f:
-	for line in f:
+for groups in phoneRegex.findall(text):
+	phoneNum = '-'.join([groups[1], groups[3], groups[5]])
+	if groups[-1] != '':
+		phoneNum += ' x' + groups[8]
+	matches.append(phoneNum)
+for groups in emailRegex.findall(text):
+	matches.append(groups[0])
+
+# Copy the results to the clipboard.
+if len(matches) > 0:
+	pyperclip.copy('\n'.join(matches))
+	print('Copied to the clipboard:')
+	print ('\n'.join(matches))
+else:
+	print('No phone numbers or email addresses found.')
