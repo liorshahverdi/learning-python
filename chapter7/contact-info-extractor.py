@@ -12,7 +12,12 @@ phoneRegex = re.compile(r'''(
 	)''', re.VERBOSE)
 
 # Create email regex
-emailRegex = re.compile('[^@]+@[^@]+\.[^@]+')
+emailRegex = re.compile(r'''(
+	[a-zA-Z0-9._%+-]+				# username
+	(@)								# @ symbol
+	[a-zA-Z0-9.-]+					# domain name			
+	(\.[a-zA-Z]{2,4})				# dot something
+	)''', re.VERBOSE)
 
 # Find matches in clipboard text.
 text = str(pyperclip.paste())
