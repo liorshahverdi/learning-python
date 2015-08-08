@@ -1,0 +1,13 @@
+>>> podBayDoorStatus = 'open'
+>>> assert podBayDoorStatus == 'open', 'The pod bay doors need to be "open".'
+>>> podBayDoorStatus = 'I\'m sorry, Dave. I\'m afraid I can't do that.''
+>>> assert podBayDoorStatus == 'open', 'The pod bay doors need to be "open".'
+Traceback (most recent call last):
+  File "<pyshell#10>", line 1, in <module>
+    assert podBayDoorStatus == 'open', 'The pod bay doors need to be "open".'
+AssertionError: The pod bay doors need to be "open".
+
+Assertions
+"I assert that this condition holds true, and if not, there is a bug somewhere in the program."
+Don't handle assert statements with try and except
+If an assert fails, your program should crash!
