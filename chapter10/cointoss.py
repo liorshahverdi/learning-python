@@ -18,4 +18,4 @@ else:
     if toss == 0 and guess == 'tails' or toss == 1 and guess == 'heads':
     	print('You got it!')
     else:
-		print('Nope! You\'re really bad at this game.')
+        print('Nope! You\'re really bad at this game.')
